@@ -14,6 +14,7 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
 folder_files = Path(__file__).parent / "files"
+folder_files.mkdir(exist_ok=True) 
 model_name = "gpt-3.5-turbo-0125"
 
 def import_files():
