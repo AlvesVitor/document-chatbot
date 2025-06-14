@@ -2,6 +2,7 @@ langchain
 langchain-community
 langchain-openai
 openai
+pypdf
 pandas
 streamlit
 python-dotenv
