@@ -83,13 +83,18 @@ Siga os passos abaixo para configurar e executar o projeto:
 
 ## 🚀 Uso
 
+<<<<<<< HEAD
 1. Coloque os arquivos `.pdf`, `.csv` ou `.zip` contendo PDFs ou CSVs na pasta `files/`.
 2. Acesse a interface do Streamlit no navegador.
+=======
+1. Acesse a interface do Streamlit no navegador.
+2. Utilize a interface para importar arquivos `.pdf` ou `.csv` e inicialize o chat.
+>>>>>>> 0d94c015b0a829dae578701e2f2b28c565703dce
 3. Faça perguntas relacionadas ao conteúdo dos documentos, e o chatbot responderá com base nas informações processadas.
 
 ## 📝 Notas
 
-- Certifique-se de que os arquivos na pasta `files/` são legíveis e estão no formato correto.
+- Certifique-se de que os arquivos importados são legíveis e estão no formato correto.
 - O desempenho do chatbot pode variar dependendo do tamanho e da complexidade dos documentos.
 - Para melhores resultados, utilize documentos bem estruturados.
 
