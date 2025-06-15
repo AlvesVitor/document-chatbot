@@ -26,11 +26,9 @@ def chat_window():
         st.rerun()
 
 def save_uploaded_files(uploaded_files, folder):
-    for file in folder.glob("*.csv"):
-        file.unlink()
-
-    for file in folder.glob("*.pdf"):
-        file.unlink()
+    for ext in ["csv", "pdf", "zip"]:
+        for file in folder.glob(f"*.{ext}"):
+            file.unlink()
    
     for file in uploaded_files:
         (folder / file.name).write_bytes(file.read())
@@ -38,8 +36,8 @@ def save_uploaded_files(uploaded_files, folder):
 def main():
     with st.sidebar:
         st.header("Upload de CSV e PDF")
-        uploaded_files = st.file_uploader("Adicione arquivos PDF ou CSV", 
-                                         type=["csv", "pdf"], 
+        uploaded_files = st.file_uploader("Adicione arquivos PDF, CSV ou ZIP (compactados com PDFs/CSVs)", 
+                                         type=["csv", "pdf", "zip"], 
                                          accept_multiple_files=True)
         if uploaded_files:
             save_uploaded_files(uploaded_files, folder_files)
@@ -49,8 +47,8 @@ def main():
         if "chain" in st.session_state:
             label_button = "Atualizar Chatbot"
         if st.button(label_button, use_container_width=True):
-            if not any(folder_files.glob("*.csv")) and not any(folder_files.glob("*.pdf")):
-                st.error("Adicione arquivos csv ou pdf para inicializar o chatbot")
+            if not any(folder_files.glob("*.csv")) and not any(folder_files.glob("*.pdf")) and not any(folder_files.glob("*.zip")):
+                st.error("Adicione arquivos CSV ou PDF, ou ZIP contendo esses arquivos, para iniciar o chatbot")
             else:
                 st.success("Inicializando o Chatbot...")
                 create_chain_talk()

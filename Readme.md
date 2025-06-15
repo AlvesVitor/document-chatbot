@@ -5,13 +5,14 @@ Este projeto implementa um chatbot que responde a perguntas com base em document
 ## 📑 Funcionalidades
 
 - Processamento de arquivos `.pdf` e `.csv`.
+- Descompactação automática de arquivos `.zip` contendo arquivos `.pdf` ou `.csv`.
 - Respostas baseadas em conteúdo extraído dos documentos.
 - Interface interativa desenvolvida com Streamlit.
 - Integração com embeddings e busca vetorial via FAISS.
 
 ## 📂 Estrutura do Projeto
 
-O projeto espera uma pasta chamada `files/` na raiz do repositório, onde os arquivos `.pdf` ou `.csv` devem ser armazenados. Essa pasta será criada automaticamente caso não exista.
+O projeto espera uma pasta chamada `files/` na raiz do repositório, onde os arquivos `.pdf`, `.csv` ou `.zip` devem ser armazenados. Essa pasta será criada automaticamente caso não exista.
 
 ```
 ├── app.py              # Arquivo principal da aplicação
@@ -82,7 +83,7 @@ Siga os passos abaixo para configurar e executar o projeto:
 
 ## 🚀 Uso
 
-1. Coloque os arquivos `.pdf` ou `.csv` na pasta `files/`.
+1. Coloque os arquivos `.pdf`, `.csv` ou `.zip` contendo PDFs ou CSVs na pasta `files/`.
 2. Acesse a interface do Streamlit no navegador.
 3. Faça perguntas relacionadas ao conteúdo dos documentos, e o chatbot responderá com base nas informações processadas.
 

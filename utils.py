@@ -10,30 +10,70 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
+import zipfile
+import tempfile
 
 _ = load_dotenv(find_dotenv())
 
 folder_files = Path(__file__).parent / "files"
 folder_files.mkdir(exist_ok=True) 
-model_name = "gpt-3.5-turbo-0125"
+model_name = "gpt-4o-mini"
 
 def import_files():
     docs = []
     
-    # PDFs
-    for file in folder_files.glob("*.pdf"):
-        loader = PyPDFLoader(file)
-        pdf_docs = loader.load()
-        for doc in pdf_docs:
-            doc.metadata["source"] = file.name
-        docs.extend(pdf_docs)
-    
-    # CSVs
-    for file in folder_files.glob("*.csv"):
-        df = pd.read_csv(file)
-        content = df.to_string(index=False)
-        doc = Document(page_content=content, metadata={"source": file.name})
-        docs.append(doc)
+    # Criar diretório temporário para descompactação
+    with tempfile.TemporaryDirectory() as temp_dir:
+        # Processar arquivos ZIP
+        for zip_file in folder_files.glob("*.zip"):
+            with zipfile.ZipFile(zip_file, 'r') as zip_ref:
+                # Extrair o conteúdo do ZIP para o diretório temporário
+                zip_ref.extractall(temp_dir)
+                
+                # Processar arquivos extraídos (PDFs e CSVs)
+                temp_path = Path(temp_dir)
+                
+                # PDFs extraídos
+                for file in temp_path.glob("*.pdf"):
+                    try:
+                        loader = PyPDFLoader(str(file))
+                        pdf_docs = loader.load()
+                        for doc in pdf_docs:
+                            doc.metadata["source"] = f"{zip_file.name}/{file.name}"
+                        docs.extend(pdf_docs)
+                    except Exception as e:
+                        print(f"Erro ao processar PDF {file.name} de {zip_file.name}: {e}")
+                
+                # CSVs extraídos
+                for file in temp_path.glob("*.csv"):
+                    try:
+                        df = pd.read_csv(file)
+                        content = df.to_string(index=False)
+                        doc = Document(page_content=content, metadata={"source": f"{zip_file.name}/{file.name}"})
+                        docs.append(doc)
+                    except Exception as e:
+                        print(f"Erro ao processar CSV {file.name} de {zip_file.name}: {e}")
+
+        # Processar PDFs diretamente na pasta
+        for file in folder_files.glob("*.pdf"):
+            try:
+                loader = PyPDFLoader(str(file))
+                pdf_docs = loader.load()
+                for doc in pdf_docs:
+                    doc.metadata["source"] = file.name
+                docs.extend(pdf_docs)
+            except Exception as e:
+                print(f"Erro ao processar PDF {file.name}: {e}")
+        
+        # Processar CSVs diretamente na pasta
+        for file in folder_files.glob("*.csv"):
+            try:
+                df = pd.read_csv(file)
+                content = df.to_string(index=False)
+                doc = Document(page_content=content, metadata={"source": file.name})
+                docs.append(doc)
+            except Exception as e:
+                print(f"Erro ao processar CSV {file.name}: {e}")
 
     return docs
 
