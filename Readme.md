@@ -1,6 +1,6 @@
 # 🧠 Document Chatbot - OpenAI
 
-Este projeto implementa um chatbot que responde a perguntas com base em documentos nos formatos PDF e CSV. A aplicação utiliza o modelo de linguagem `gpt-3.5-turbo` da OpenAI e o conceito de **Retrieval-Augmented Generation (RAG)** para fornecer respostas precisas e contextuais.
+Este projeto implementa um chatbot que responde a perguntas com base em documentos nos formatos PDF e CSV. A aplicação utiliza o modelo de linguagem `gpt-4o-mini` da OpenAI e o conceito de **Retrieval-Augmented Generation (RAG)** para fornecer respostas precisas e contextuais.
 
 ## 📑 Funcionalidades
 
