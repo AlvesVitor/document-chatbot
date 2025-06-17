@@ -16,6 +16,7 @@ O projeto espera uma pasta chamada `files/` na raiz do repositório, onde os arq
 
 ```
 ├── app.py              # Arquivo principal da aplicação
+├── utils.py            # Arquivo com funcionalidades da aplicação
 ├── files/              # Pasta para armazenar documentos
 ├── requirements.txt    # Dependências do projeto
 ├── .env                # Variáveis de ambiente (ex.: API key)
@@ -26,7 +27,7 @@ O projeto espera uma pasta chamada `files/` na raiz do repositório, onde os arq
 
 - **Python**: 3.8 ou superior
 - **Pip**: Gerenciador de pacotes do Python
-- **Chave de API da OpenAI**: Necessária para utilizar o modelo `gpt-3.5-turbo`
+- **Chave de API da OpenAI**: Necessária para utilizar o modelo `gpt-4o-mini`
 
 ### Bibliotecas Utilizadas
 
